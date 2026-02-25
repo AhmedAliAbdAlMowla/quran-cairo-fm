@@ -1,0 +1,72 @@
+# Robots.txt for Egypt Quran Radio Cairo
+# https://qurancairofm.com/
+
+# Allow all bots
+User-agent: *
+Allow: /
+Disallow: /css/
+Disallow: /js/
+
+# Google Bot
+User-agent: Googlebot
+Allow: /
+Allow: /images/
+Allow: /*.css$
+Allow: /*.js$
+Crawl-delay: 0
+
+# Bing Bot
+User-agent: Bingbot
+Allow: /
+Allow: /images/
+Allow: /*.css$
+Allow: /*.js$
+Crawl-delay: 0
+
+# Google Image Bot
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.webp$
+Allow: /*.ico$
+
+# Google AdSense
+User-agent: Mediapartners-Google
+Allow: /
+
+# Common AI/ML Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://qurancairofm.com/sitemap.xml
+
+# Cache control hint
+# Cache-Control: public, max-age=3600

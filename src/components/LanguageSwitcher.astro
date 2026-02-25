@@ -1,0 +1,30 @@
+---
+export interface Props {
+  currentLang?: string;
+}
+
+const { currentLang = "ar" } = Astro.props;
+---
+
+<div class="lang-switcher">
+  <a
+    href="/en"
+    class={`lang-btn ${currentLang === "en" ? "active" : ""}`}
+  >
+    <span class="lang-text">EN</span>
+  </a>
+  <a
+    href="/"
+    class={`lang-btn ${currentLang === "ar" ? "active" : ""}`}
+  >
+    <span class="lang-text">عربي</span>
+  </a>
+</div>
+
+<style>
+  .lang-btn {
+    text-decoration: none;
+    display: inline-block;
+  }
+</style>
+

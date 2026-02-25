@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RadioPlayer from '../components/RadioPlayer.astro';
+import ControlButtons from '../components/ControlButtons.astro';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+
+const title = "إذاعة القرآن الكريم من القاهرة - بث مباشر 24/7 | القرآن الكريم أونلاين";
+const description = "استمع إلى بث مباشر لإذاعة القرآن الكريم من القاهرة. تلاوات خاشعة على مدار الساعة من كبار القراء. استمع للقرآن الكريم أونلاين مجاناً بجودة عالية.";
+---
+
+<Layout title={title} description={description} lang="ar" dir="rtl">
+  <Fragment slot="head">
+    <link rel="alternate" hreflang="ar" href="/" />
+    <link rel="alternate" hreflang="en" href="/en" />
+    <link rel="alternate" hreflang="x-default" href="/" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/style-rtl.css" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" is:inline>
+    {
+        "@context": "https://schema.org",
+        "@type": "RadioStation",
+        "name": "إذاعة القرآن الكريم من القاهرة",
+        "alternateName": "Egypt Quran Radio",
+        "url": "https://qurancairofm.com/",
+        "logo": "https://qurancairofm.com/images/mosque.png",
+        "description": "إذاعة القرآن الكريم من القاهرة - بث مباشر على مدار الساعة للقرآن الكريم",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Cairo",
+            "addressCountry": "EG"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 30.0444,
+            "longitude": 31.2357
+        },
+        "areaServed": {
+            "@type": "GeoShape",
+            "name": "Worldwide"
+        },
+        "inLanguage": ["ar", "en"],
+        "broadcastFrequency": "Online",
+        "potentialAction": {
+            "@type": "ListenAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://qurancairofm.com/",
+                "actionPlatform": [
+                    "http://schema.org/DesktopWebPlatform",
+                    "http://schema.org/MobileWebPlatform",
+                    "http://schema.org/IOSPlatform",
+                    "http://schema.org/AndroidPlatform"
+                ]
+            },
+            "expectsAcceptanceOf": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD",
+                "eligibleRegion": {
+                    "@type": "Place",
+                    "name": "Worldwide"
+                }
+            }
+        }
+    }
+    </script>
+  </Fragment>
+
+  <!-- Language Switcher -->
+  <LanguageSwitcher currentLang="ar" />
+
+  <!-- Animated background gradient -->
+  <div class="background-gradient">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+  </div>
+
+  <!-- Main container with glass effect -->
+  <div class="glass-container">
+    <!-- Header glass panel -->
+    <div class="glass-panel header-panel">
+      <div class="water-ripple"></div>
+      <h1 class="glass-title">
+        <img src="/images/mosque.png" alt="رمز إسلامي" class="icon-glow" style="width: 2.5em; height: 2.5em; vertical-align: middle;">
+        <span class="title-text">إذاعة القرآن الكريم</span>
+      </h1>
+      <p class="subtitle">من القاهرة • مصر</p>
+    </div>
+
+    <!-- Player glass panel -->
+    <RadioPlayer lang="ar" />
+
+    <!-- Controls glass panel -->
+    <ControlButtons lang="ar" />
+
+    <!-- Status glass panel -->
+    <div class="glass-panel status-panel">
+      <div class="status-indicator">
+        <span class="pulse-dot"></span>
+        <span id="status" class="status-text">جاهز للتشغيل</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating particles effect -->
+  <div class="particles-container">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <!-- Developer Credit -->
+  <div class="dev-credit">
+    <a href="https://engahmedali.dev/" target="_blank" rel="noopener" class="dev-link">
+      <span class="dev-text">Ahmed Ali</span>
+    </a>
+  </div>
+
+  <script src="/js/script-ar.js" is:inline></script>
+</Layout>

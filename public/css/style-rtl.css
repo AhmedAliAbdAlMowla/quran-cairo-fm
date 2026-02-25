@@ -1,0 +1,135 @@
+/* RTL Styles for Arabic */
+html[dir="rtl"] {
+    font-family: 'Segoe UI', Tahoma, 'Arial', sans-serif;
+}
+
+/* Language switcher on left side for RTL */
+html[dir="rtl"] .lang-switcher {
+    right: auto;
+    left: 20px;
+}
+
+/* Developer credit on right side for RTL - desktop only */
+@media (min-width: 601px) {
+    html[dir="rtl"] .dev-credit {
+        left: auto;
+        right: 15px;
+    }
+}
+
+/* Glass title with reversed direction */
+html[dir="rtl"] .glass-title {
+    flex-direction: row-reverse;
+}
+
+/* Controls in RTL order */
+html[dir="rtl"] .controls-wrapper {
+    flex-direction: row-reverse;
+}
+
+/* Player container RTL */
+html[dir="rtl"] .player-container {
+    flex-direction: row-reverse;
+}
+
+/* Keep numbers in LTR */
+html[dir="rtl"] .counter-time {
+    direction: ltr;
+}
+
+html[dir="rtl"] .volume-value {
+    direction: ltr;
+}
+
+html[dir="rtl"] .volume-control {
+    direction: ltr;
+}
+
+html[dir="rtl"] .volume-slider-container {
+    direction: ltr;
+}
+
+html[dir="rtl"] .volume-slider {
+    direction: ltr;
+}
+
+/* Animations for RTL */
+html[dir="rtl"] .particles-container .particle {
+    animation-direction: reverse;
+}
+
+html[dir="rtl"] .water-wave {
+    animation-direction: reverse;
+}
+
+/* Title text - same as English now */
+html[dir="rtl"] .title-text {
+    /* Will inherit size from main styles */
+}
+
+/* RTL Responsive styles - Tablets */
+@media (max-width: 768px) {
+    /* All size styles from main CSS apply automatically */
+    /* Only RTL-specific positioning adjustments needed */
+}
+
+/* RTL Responsive styles - Mobile */
+@media (max-width: 600px) {
+    html[dir="rtl"] .lang-switcher {
+        right: auto;
+        left: 2px;
+        top: 2px;
+        /* Scale is inherited from main styles */
+    }
+
+    /* Centered developer credit on mobile for RTL */
+    html[dir="rtl"] .dev-credit {
+        /* Inherits centered position from main styles */
+    }
+
+    /* Keep controls in correct RTL order */
+    html[dir="rtl"] .controls-wrapper {
+        flex-direction: row-reverse;
+    }
+
+    /* Player container becomes vertical on mobile (same as LTR) */
+    html[dir="rtl"] .player-container {
+        flex-direction: column;
+    }
+
+    /* Volume control horizontal on mobile, stays LTR */
+    html[dir="rtl"] .volume-control {
+        direction: ltr;
+        flex-direction: row;
+    }
+}
+
+/* RTL - Small phones */
+@media (max-width: 400px) {
+    html[dir="rtl"] .lang-switcher {
+        right: auto;
+        left: 2px;
+    }
+
+    /* Developer credit centered - no RTL adjustment needed */
+}
+
+/* RTL - iPhone 13, 12, 11 Pro (390px) */
+@media (max-width: 390px) {
+    html[dir="rtl"] .lang-switcher {
+        right: auto;
+        left: 2px;
+    }
+
+    /* Developer credit centered - no RTL adjustment needed */
+}
+
+/* RTL - Very small phones */
+@media (max-width: 360px) {
+    html[dir="rtl"] .lang-switcher {
+        right: auto;
+        left: 2px;
+    }
+
+    /* Developer credit centered - no RTL adjustment needed */
+}

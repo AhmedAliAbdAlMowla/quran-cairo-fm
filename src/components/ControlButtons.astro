@@ -1,0 +1,318 @@
+---
+export interface Props {
+  lang?: string;
+}
+
+const { lang = "ar" } = Astro.props;
+const isRTL = lang === "ar";
+---
+
+<div class="glass-panel controls-panel">
+  <div class="controls-wrapper">
+    <button class="control-btn play-btn" id="playBtn" title={isRTL ? "تشغيل" : "Play"}>
+      <svg class="btn-svg" viewBox="0 0 24 24" width="24" height="24">
+        <path d="M8 5v14l11-7z" fill="currentColor"></path>
+      </svg>
+      <span class="btn-label">{isRTL ? "تشغيل" : "Play"}</span>
+      <span class="btn-ripple"></span>
+    </button>
+
+    <button class="control-btn stop-btn" id="stopBtn" title={isRTL ? "إيقاف" : "Stop"}>
+      <svg class="btn-svg" viewBox="0 0 24 24" width="24" height="24">
+        <rect x="6" y="6" width="12" height="12" fill="currentColor"></rect>
+      </svg>
+      <span class="btn-label">{isRTL ? "إيقاف" : "Stop"}</span>
+      <span class="btn-ripple"></span>
+    </button>
+
+    <button class="control-btn refresh-btn" id="refreshBtn" title={isRTL ? "تحديث" : "Refresh"}>
+      <svg class="btn-svg rotating" viewBox="0 0 24 24" width="24" height="24">
+        <path
+          d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+          fill="currentColor"></path>
+      </svg>
+      <span class="btn-label">{isRTL ? "تحديث" : "Refresh"}</span>
+      <span class="btn-ripple"></span>
+    </button>
+  </div>
+</div>
+
+<script>
+  // Type declarations for Howler.js and global interfaces
+  interface HowlOptions {
+    src: string[];
+    html5?: boolean;
+    format?: string[];
+    volume?: number;
+    preload?: boolean;
+    onplay?: () => void;
+    onstop?: () => void;
+    onend?: () => void;
+    onloaderror?: () => void;
+    onplayerror?: () => void;
+  }
+
+  interface Howl {
+    play(): void;
+    stop(): void;
+    unload(): void;
+    volume(value: number): void;
+  }
+
+  declare const Howl: new (options: HowlOptions) => Howl;
+
+  interface RadioElements {
+    status: HTMLElement | null;
+    statusIndicator: HTMLElement | null;
+    playerPanel: HTMLElement | null;
+    volumeSlider: HTMLInputElement | null;
+    volumeValue: HTMLElement | null;
+    volumeFill: HTMLElement | null;
+    currentTime: HTMLElement | null;
+    currentSeconds: HTMLElement | null;
+    liveIndicator: HTMLElement | null;
+    counterLabel: HTMLElement | null;
+    playBtn: HTMLButtonElement | null;
+    stopBtn: HTMLButtonElement | null;
+    refreshBtn: HTMLButtonElement | null;
+  }
+
+  // Import Howler.js from CDN
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js';
+  script.async = true;
+  script.onload = initializeRadioPlayer;
+  document.head.appendChild(script);
+
+  function initializeRadioPlayer() {
+    // Get language from page
+    const isArabic = document.documentElement.lang === 'ar';
+
+    const translations = isArabic ? {
+      ready: 'جاهز للتشغيل',
+      loading: 'جاري التحميل...',
+      playing: 'يتم التشغيل الآن',
+      stopped: 'متوقف',
+      refreshing: 'جاري التحديث...',
+      error: 'خطأ في تحميل البث'
+    } : {
+      ready: 'Ready to Play',
+      loading: 'Loading...',
+      playing: 'Now Playing',
+      stopped: 'Stopped',
+      refreshing: 'Refreshing...',
+      error: 'Error loading stream'
+    };
+
+    class RadioPlayer {
+      sound: Howl | null;
+      isPlaying: boolean;
+      playbackTime: number;
+      counterInterval: ReturnType<typeof setInterval> | null;
+      elements: RadioElements;
+
+      constructor() {
+        this.sound = null;
+        this.isPlaying = false;
+        this.playbackTime = 0;
+        this.counterInterval = null;
+        this.elements = {} as RadioElements;
+        this.setupElements();
+        this.attachListeners();
+        this.updateStatus('ready');
+      }
+
+      setupElements() {
+        this.elements = {
+          status: document.getElementById('status'),
+          statusIndicator: document.querySelector('.status-indicator'),
+          playerPanel: document.querySelector('.player-panel'),
+          volumeSlider: document.getElementById('volumeSlider') as HTMLInputElement,
+          volumeValue: document.querySelector('.volume-value'),
+          volumeFill: document.querySelector('.volume-fill'),
+          currentTime: document.getElementById('currentTime'),
+          currentSeconds: document.getElementById('currentSeconds'),
+          liveIndicator: document.querySelector('.live-indicator'),
+          counterLabel: document.getElementById('counterLabel'),
+          playBtn: document.getElementById('playBtn') as HTMLButtonElement,
+          stopBtn: document.getElementById('stopBtn') as HTMLButtonElement,
+          refreshBtn: document.getElementById('refreshBtn') as HTMLButtonElement
+        };
+      }
+
+      createSound() {
+        if (this.sound) {
+          this.sound.unload();
+        }
+
+        this.sound = new Howl({
+          src: [
+            'https://n01.radiojar.com/8s5u5tpdtwzuv?rj-ttl=5&rj-tok=AAABmXK3CA0AlLPRdfTei-KzcQ',
+            'https://n06.radiojar.com/8s5u5tpdtwzuv?rj-ttl=5&rj-tok=AAABmXITLbUAnkhYRNoalMnuuw'
+          ],
+          html5: true,
+          format: ['mp3'],
+          volume: 0.8,
+          preload: false,
+          onplay: () => this.onPlay(),
+          onstop: () => this.onStop(),
+          onend: () => this.onStop(),
+          onloaderror: () => this.onError(),
+          onplayerror: () => this.onError()
+        });
+      }
+
+      play() {
+        if (!this.sound) {
+          this.createSound();
+        }
+        this.updateStatus('loading');
+        if (this.sound) {
+          this.sound.play();
+        }
+      }
+
+      stop() {
+        if (this.sound) {
+          this.sound.stop();
+          this.sound.unload();
+          this.sound = null;
+        }
+        this.updateStatus('stopped');
+        this.stopCounter();
+      }
+
+      refresh() {
+        this.updateStatus('refreshing');
+        if (this.sound) {
+          this.sound.unload();
+          this.sound = null;
+        }
+        this.createSound();
+        setTimeout(() => this.play(), 500);
+      }
+
+      onPlay() {
+        this.isPlaying = true;
+        this.updateStatus('playing');
+        this.startCounter();
+        if (this.elements.liveIndicator) {
+          this.elements.liveIndicator.classList.add('active');
+        }
+      }
+
+      onStop() {
+        this.isPlaying = false;
+        this.updateStatus('stopped');
+        this.stopCounter();
+        if (this.elements.liveIndicator) {
+          this.elements.liveIndicator.classList.remove('active');
+        }
+      }
+
+      onError() {
+        this.updateStatus('error');
+        this.stopCounter();
+        setTimeout(() => this.updateStatus('ready'), 3000);
+      }
+
+      updateStatus(status: keyof typeof translations) {
+        if (this.elements.status) {
+          this.elements.status.textContent = translations[status] || translations.ready;
+        }
+        if (this.elements.counterLabel) {
+          this.elements.counterLabel.textContent = translations[status] || translations.ready;
+        }
+        if (this.elements.statusIndicator) {
+          if (status === 'playing') {
+            this.elements.statusIndicator.classList.add('playing');
+          } else {
+            this.elements.statusIndicator.classList.remove('playing');
+          }
+        }
+        if (this.elements.playerPanel) {
+          if (status === 'playing') {
+            this.elements.playerPanel.classList.add('playing');
+          } else {
+            this.elements.playerPanel.classList.remove('playing');
+          }
+        }
+      }
+
+      startCounter() {
+        this.playbackTime = 0;
+        if (this.counterInterval !== null) {
+          clearInterval(this.counterInterval);
+        }
+        this.counterInterval = setInterval(() => {
+          this.playbackTime++;
+          this.updateCounter();
+        }, 1000);
+      }
+
+      stopCounter() {
+        if (this.counterInterval !== null) {
+          clearInterval(this.counterInterval);
+        }
+        this.playbackTime = 0;
+        this.updateCounter();
+      }
+
+      updateCounter() {
+        if (this.elements.currentTime && this.elements.currentSeconds) {
+          const mins = Math.floor(this.playbackTime / 60);
+          const secs = this.playbackTime % 60;
+          this.elements.currentTime.textContent = mins.toString().padStart(2, '0');
+          this.elements.currentSeconds.textContent = secs.toString().padStart(2, '0');
+        }
+      }
+
+      attachListeners() {
+        // Button listeners with touch support
+        if (this.elements.playBtn) {
+          this.elements.playBtn.addEventListener('click', () => this.play());
+          this.elements.playBtn.addEventListener('touchend', (e: TouchEvent) => {
+            e.preventDefault();
+            this.play();
+          });
+        }
+
+        if (this.elements.stopBtn) {
+          this.elements.stopBtn.addEventListener('click', () => this.stop());
+          this.elements.stopBtn.addEventListener('touchend', (e: TouchEvent) => {
+            e.preventDefault();
+            this.stop();
+          });
+        }
+
+        if (this.elements.refreshBtn) {
+          this.elements.refreshBtn.addEventListener('click', () => this.refresh());
+          this.elements.refreshBtn.addEventListener('touchend', (e: TouchEvent) => {
+            e.preventDefault();
+            this.refresh();
+          });
+        }
+
+        // Volume control
+        if (this.elements.volumeSlider) {
+          this.elements.volumeSlider.addEventListener('input', (e: Event) => {
+            const target = e.target as HTMLInputElement;
+            const value = parseInt(target.value);
+            if (this.sound) {
+              this.sound.volume(value / 100);
+            }
+            if (this.elements.volumeValue) {
+              this.elements.volumeValue.textContent = value + '%';
+            }
+            if (this.elements.volumeFill) {
+              this.elements.volumeFill.style.height = value + '%';
+            }
+          });
+        }
+      }
+    }
+
+    // Create global instance
+    (window as any).radioPlayer = new RadioPlayer();
+  }
+</script>

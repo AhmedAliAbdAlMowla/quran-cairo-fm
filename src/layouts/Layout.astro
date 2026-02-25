@@ -1,0 +1,72 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  keywords?: string;
+  lang?: string;
+  dir?: string;
+}
+
+const {
+  title,
+  description = "استمع إلى بث مباشر لإذاعة القرآن الكريم من القاهرة. تلاوات خاشعة على مدار الساعة من كبار القراء. استمع للقرآن الكريم أونلاين مجاناً بجودة عالية.",
+  keywords = "القرآن الكريم, إذاعة القرآن, بث مباشر, القاهرة, مصر, تلاوة, قرآن أونلاين, راديو القرآن, استماع القرآن, قراء مصريين, إذاعة إسلامية",
+  lang = "ar",
+  dir = "rtl"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang={lang} dir={dir}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="إذاعة القرآن الكريم من القاهرة" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content={lang === "ar" ? "Arabic" : "English"} />
+    <meta http-equiv="Content-Language" content={lang} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/images/mosque.png" />
+    <meta property="og:locale" content={lang === "ar" ? "ar_EG" : "en_US"} />
+    <meta property="og:site_name" content="إذاعة القرآن الكريم من القاهرة" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="/images/mosque.png" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1a4d2e" />
+
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
