@@ -1,0 +1,80 @@
+---
+export interface Props {
+  currentLang: string;
+}
+
+const { currentLang } = Astro.props;
+const isArabic = currentLang === 'ar';
+
+// Determine the target URL and button text
+const targetUrl = isArabic ? '/en' : '/';
+const buttonText = isArabic ? 'English' : 'العربية';
+---
+
+<div class="simple-lang-switcher">
+  <a href={targetUrl} class="simple-lang-btn">
+    {buttonText}
+  </a>
+</div>
+
+<style>
+  /* Simple Language Switcher */
+  .simple-lang-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+  }
+
+  [dir="rtl"] .simple-lang-switcher {
+    right: auto;
+    left: 20px;
+  }
+
+  /* Language Button */
+  .simple-lang-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--glass-bg-3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 0.3s var(--ease-smooth);
+    cursor: pointer;
+  }
+
+  .simple-lang-btn:hover {
+    background: var(--glass-bg-4);
+    border-color: var(--glass-border-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    color: var(--primary-color);
+  }
+
+  .simple-lang-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .simple-lang-switcher {
+      top: 15px;
+      right: 15px;
+    }
+
+    [dir="rtl"] .simple-lang-switcher {
+      right: auto;
+      left: 15px;
+    }
+
+    .simple-lang-btn {
+      padding: 8px 16px;
+      font-size: 0.813rem;
+    }
+  }
+</style>

@@ -1,0 +1,60 @@
+/* TEAM */
+Developer: Ahmed Ali
+Site: https://engahmedali.dev/
+Location: Egypt
+Twitter: @engahmedali (if applicable)
+
+/* SITE */
+Name: Egypt Quran Radio Cairo - إذاعة القرآن الكريم من القاهرة
+URL: https://qurancairofm.com
+Last update: 2026-03-18
+Language: Arabic / English
+Purpose: Live Quran radio broadcasting 24/7 from Cairo, Egypt
+Standards: HTML5, CSS3, Accessibility (WCAG 2.1)
+Components: Astro, TypeScript, Howler.js
+IDE: Visual Studio Code
+Version Control: Git
+
+/* THANKS */
+Quran reciters from around the world
+Listeners who tune in daily for spiritual guidance
+RadioJar for reliable streaming infrastructure
+Open source community for amazing tools
+
+/* TECH STACK */
+Framework: Astro 5.15.9
+JavaScript Runtime: Node.js
+Audio Library: Howler.js 2.2.4
+Package Manager: npm
+Build Tool: Vite
+Deployment: Static hosting (Netlify/Vercel recommended)
+
+/* FEATURES */
+- Live 24/7 Quran radio streaming
+- Modern glass-morphism UI design
+- Sleep timer with multiple duration options
+- Bilingual interface (Arabic/English)
+- Responsive design (mobile-first)
+- Enhanced accessibility (WCAG 2.1)
+- SEO optimized (100% Lighthouse score target)
+- Zero security vulnerabilities
+- Progressive enhancement
+- Toast notifications
+- Keyboard shortcuts support
+
+/* CONTACT */
+For suggestions or issues: https://github.com/AhmedAliAbdAlMowla/quran-cairo-fm/issues
+Developer: https://engahmedali.dev/
+
+             _.-""""'-._
+           .'  ________  '.
+          / .'          '. \
+         | /   القرآن     \ |
+         | |   الكريم     | |
+         | \              / |
+          \ '.          .' /
+           '.  '------'  .'
+             '-._    _.-'
+                 """"
+
+        Made with ❤️ for the Muslim Ummah
