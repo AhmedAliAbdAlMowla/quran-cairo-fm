@@ -99,13 +99,6 @@ const isRTL = lang === "ar";
       <div class="quality-indicator">
         <span class="quality-badge">HD</span>
       </div>
-
-      <!-- More Options -->
-      <button class="more-btn" id="moreBtn" aria-label={isRTL ? "المزيد" : "More"}>
-        <svg viewBox="0 0 24 24" width="20" height="20">
-          <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/>
-        </svg>
-      </button>
     </div>
 
     <!-- Live Indicator -->
@@ -357,7 +350,7 @@ const isRTL = lang === "ar";
     gap: var(--space-sm);
   }
 
-  .volume-btn, .speed-btn, .timer-btn, .more-btn {
+  .volume-btn, .speed-btn, .timer-btn {
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -371,7 +364,7 @@ const isRTL = lang === "ar";
     transition: all 0.2s ease;
   }
 
-  .volume-btn:hover, .speed-btn:hover, .timer-btn:hover, .more-btn:hover {
+  .volume-btn:hover, .speed-btn:hover, .timer-btn:hover {
     background: var(--glass-bg-3);
     border-color: var(--primary-color);
     color: var(--primary-color);
@@ -735,7 +728,7 @@ const isRTL = lang === "ar";
       padding: var(--space-sm);
     }
 
-    .volume-btn, .speed-btn, .timer-btn, .more-btn {
+    .volume-btn, .speed-btn, .timer-btn {
       width: 32px;
       height: 32px;
     }
@@ -784,11 +777,18 @@ const isRTL = lang === "ar";
     sleepTimerMinutes: number = 0;
     sleepTimerRemaining: number = 0;
     circumference: number = 2 * Math.PI * 88;
+    lang: string = 'ar';
 
     constructor() {
       this.initElements();
       this.initEventListeners();
       this.initKeyboardShortcuts();
+      this.detectLanguage();
+    }
+
+    detectLanguage() {
+      // Detect language from HTML lang attribute
+      this.lang = document.documentElement.lang || 'ar';
     }
 
     initElements() {
@@ -955,8 +955,8 @@ const isRTL = lang === "ar";
     }
 
     startSleepTimer(minutes: number) {
-      // Clear any existing timer
-      this.cancelTimer();
+      // Clear any existing timer (silently, without showing toast)
+      this.cancelTimer(true);
 
       // Set new timer
       this.sleepTimerMinutes = minutes;
@@ -986,10 +986,13 @@ const isRTL = lang === "ar";
       this.closeTimerModal();
 
       // Show toast notification
-      this.showToast(`Timer set for ${minutes} minutes`, 'success');
+      const message = this.lang === 'ar'
+        ? `تم ضبط المؤقت على ${minutes} دقيقة`
+        : `Timer set for ${minutes} minutes`;
+      this.showToast(message, 'success');
     }
 
-    cancelTimer() {
+    cancelTimer(silent: boolean = false) {
       // Clear timers
       if (this.sleepTimer) {
         clearTimeout(this.sleepTimer);
@@ -1010,8 +1013,11 @@ const isRTL = lang === "ar";
       this.timerBadge.style.display = 'none';
       this.closeTimerModal();
 
-      // Show toast notification
-      this.showToast('Timer cancelled', 'info');
+      // Show toast notification only if not silent
+      if (!silent) {
+        const message = this.lang === 'ar' ? 'تم إلغاء المؤقت' : 'Timer cancelled';
+        this.showToast(message, 'info');
+      }
     }
 
     updateTimerBadge() {
@@ -1039,7 +1045,10 @@ const isRTL = lang === "ar";
       this.timerBadge.style.display = 'none';
 
       // Show toast notification
-      this.showToast('Sleep timer expired - playback stopped', 'info');
+      const message = this.lang === 'ar'
+        ? 'انتهى المؤقت - تم إيقاف التشغيل'
+        : 'Sleep timer expired - playback stopped';
+      this.showToast(message, 'info');
     }
 
     showToast(message: string, type: 'success' | 'error' | 'info' = 'info') {

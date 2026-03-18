@@ -617,16 +617,9 @@ const isRTL = lang === "ar";
     }
 
     private showContent() {
-      // Show skeleton briefly for smooth transition
-      this.skeletonContainer.style.display = 'flex';
-
-      // Fade in actual content
-      setTimeout(() => {
-        this.skeletonContainer.style.display = 'none';
-
-        // Trigger any content animations
-        document.body.classList.add('content-loaded');
-      }, 500);
+      // Directly show content without skeleton phase
+      // This eliminates the flash of empty skeleton loaders
+      document.body.classList.add('content-loaded');
     }
 
     // Public method to show skeleton for specific sections

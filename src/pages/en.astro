@@ -31,7 +31,8 @@ const keywords = "Holy Quran, Quran Radio, Live Broadcast, Cairo, Egypt, Recitat
 
     <!-- Enhanced Structured Data -->
     <script type="application/ld+json" is:inline>
-    {
+    [
+      {
         "@context": "https://schema.org",
         "@type": "RadioStation",
         "name": "Holy Quran Radio from Cairo",
@@ -84,7 +85,42 @@ const keywords = "Holy Quran, Quran Radio, Live Broadcast, Cairo, Egypt, Recitat
             "worstRating": "1",
             "ratingCount": "2847"
         }
-    }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://qurancairofm.com/en/"
+        }]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Egypt Quran Radio Cairo",
+        "alternateName": "Holy Quran Radio from Cairo",
+        "url": "https://qurancairofm.com",
+        "logo": "https://qurancairofm.com/images/mosque.png",
+        "description": "Holy Quran Radio - Live broadcasting 24/7 from Cairo, Egypt",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Cairo",
+            "addressCountry": "EG"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Egypt Quran Radio Cairo",
+        "url": "https://qurancairofm.com",
+        "potentialAction": {
+            "@type": "ListenAction",
+            "target": "https://qurancairofm.com/en"
+        }
+      }
+    ]
     </script>
   </Fragment>
 
