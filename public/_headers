@@ -21,7 +21,7 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
   # Content Security Policy
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' n01.radiojar.com n06.radiojar.com; media-src 'self' n01.radiojar.com n06.radiojar.com;
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net static.cloudflareinsights.com; script-src-elem 'self' 'unsafe-inline' cdn.jsdelivr.net static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' *.radiojar.com; media-src 'self' *.radiojar.com;
 
   # Cache control
   Cache-Control: public, max-age=3600, must-revalidate
