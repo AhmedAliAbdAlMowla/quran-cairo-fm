@@ -25,6 +25,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
 
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="dns-prefetch" href="https://n01.radiojar.com" />
+    <link rel="dns-prefetch" href="https://n06.radiojar.com" />
+
     <!-- Primary Meta Tags -->
     <meta name="title" content={title} />
     <meta name="description" content={description} />
@@ -33,13 +38,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="robots" content="index, follow" />
     <meta name="language" content={lang === "ar" ? "Arabic" : "English"} />
     <meta http-equiv="Content-Language" content={lang} />
+    <meta name="format-detection" content="telephone=no" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="music.radio_station" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/images/mosque.png" />
+    <meta property="og:image" content="https://qurancairofm.com/images/mosque.png" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="800" />
+    <meta property="og:image:alt" content={title} />
     <meta property="og:locale" content={lang === "ar" ? "ar_EG" : "en_US"} />
     <meta property="og:site_name" content="إذاعة القرآن الكريم من القاهرة" />
 
@@ -48,7 +57,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="/images/mosque.png" />
+    <meta property="twitter:image" content="https://qurancairofm.com/images/mosque.png" />
+    <meta property="twitter:image:alt" content={title} />
 
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
@@ -74,9 +84,41 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       gtag('config', 'G-307PMYXGRE');
     </script>
 
+
     <slot name="head" />
   </head>
   <body>
-    <slot />
+    <a href="#main-content" class="skip-link">
+      {lang === "ar" ? "الانتقال إلى المحتوى الرئيسي" : "Skip to main content"}
+    </a>
+    <main id="main-content">
+      <slot />
+    </main>
   </body>
 </html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary-color, #22c55e);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 0 0 4px 0;
+    z-index: 100;
+    transition: top 0.2s ease;
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+
+  [dir="rtl"] .skip-link {
+    left: auto;
+    right: 0;
+    border-radius: 0 0 0 4px;
+  }
+</style>

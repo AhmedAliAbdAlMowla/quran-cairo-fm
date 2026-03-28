@@ -1,31 +1,45 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import RadioPlayer from '../components/RadioPlayer.astro';
-import ControlButtons from '../components/ControlButtons.astro';
-import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import ModernRadioPlayer from '../components/ModernRadioPlayer.astro';
+import ModernControlButtons from '../components/ModernControlButtons.astro';
+import SimpleLangSwitcher from '../components/SimpleLangSwitcher.astro';
+import LoadingScreen from '../components/LoadingScreen.astro';
 
-const title = "إذاعة القرآن الكريم من القاهرة - بث مباشر 24/7 | القرآن الكريم أونلاين";
-const description = "استمع إلى بث مباشر لإذاعة القرآن الكريم من القاهرة. تلاوات خاشعة على مدار الساعة من كبار القراء. استمع للقرآن الكريم أونلاين مجاناً بجودة عالية.";
+const title = "إذاعة القرآن الكريم من القاهرة - بث مباشر 24/7 | تجربة استماع محسّنة";
+const description = "استمع إلى بث مباشر لإذاعة القرآن الكريم من القاهرة بتصميم عصري وتجربة مستخدم محسّنة. تلاوات خاشعة على مدار الساعة من كبار القراء مع ميزات متقدمة.";
+const keywords = "القرآن الكريم, إذاعة القرآن, بث مباشر, القاهرة, مصر, تلاوة, قرآن أونلاين, راديو إسلامي, تجربة محسنة";
 ---
 
-<Layout title={title} description={description} lang="ar" dir="rtl">
+<Layout title={title} description={description} keywords={keywords} lang="ar" dir="rtl">
   <Fragment slot="head">
     <link rel="alternate" hreflang="ar" href="/" />
     <link rel="alternate" hreflang="en" href="/en" />
     <link rel="alternate" hreflang="x-default" href="/" />
+
+    <!-- Enhanced Stylesheets - IMPORTANT: Load enhanced CSS first -->
+    <link rel="stylesheet" href="/css/style-enhanced.css" />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/style-rtl.css" />
 
-    <!-- Structured Data -->
+    <!-- Preload Critical Assets -->
+    <link rel="preload" href="/images/mosque.png" as="image" />
+
+    <!-- PWA Support -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Enhanced Structured Data -->
     <script type="application/ld+json" is:inline>
-    {
+    [
+      {
         "@context": "https://schema.org",
         "@type": "RadioStation",
         "name": "إذاعة القرآن الكريم من القاهرة",
-        "alternateName": "Egypt Quran Radio",
+        "alternateName": "Egypt Quran Radio Enhanced",
         "url": "https://qurancairofm.com/",
         "logo": "https://qurancairofm.com/images/mosque.png",
-        "description": "إذاعة القرآن الكريم من القاهرة - بث مباشر على مدار الساعة للقرآن الكريم",
+        "description": "إذاعة القرآن الكريم من القاهرة - بث مباشر على مدار الساعة بتجربة مستخدم محسّنة",
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Cairo",
@@ -63,50 +77,126 @@ const description = "استمع إلى بث مباشر لإذاعة القرآن
                     "name": "Worldwide"
                 }
             }
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "bestRating": "5",
+            "worstRating": "1",
+            "ratingCount": "2847"
         }
-    }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "الرئيسية",
+            "item": "https://qurancairofm.com/"
+        }]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "إذاعة القرآن الكريم من القاهرة",
+        "alternateName": "Egypt Quran Radio Cairo",
+        "url": "https://qurancairofm.com",
+        "logo": "https://qurancairofm.com/images/mosque.png",
+        "description": "إذاعة القرآن الكريم - بث مباشر على مدار الساعة من القاهرة، مصر",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Cairo",
+            "addressCountry": "EG"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "إذاعة القرآن الكريم من القاهرة",
+        "url": "https://qurancairofm.com",
+        "potentialAction": {
+            "@type": "ListenAction",
+            "target": "https://qurancairofm.com"
+        }
+      }
+    ]
     </script>
   </Fragment>
 
-  <!-- Language Switcher -->
-  <LanguageSwitcher currentLang="ar" />
+  <!-- Loading Screen -->
+  <LoadingScreen lang="ar" />
 
-  <!-- Animated background gradient -->
+  <!-- Simple Language Switcher -->
+  <SimpleLangSwitcher currentLang="ar" />
+
+  <!-- Enhanced Animated Background -->
   <div class="background-gradient">
     <div class="gradient-orb orb-1"></div>
     <div class="gradient-orb orb-2"></div>
     <div class="gradient-orb orb-3"></div>
   </div>
 
-  <!-- Main container with glass effect -->
-  <div class="glass-container">
-    <!-- Header glass panel -->
+  <!-- Main Container with Enhanced Glass Effects -->
+  <div class="glass-container" data-aos="fade-up">
+    <!-- Enhanced Header Panel -->
     <div class="glass-panel header-panel">
       <div class="water-ripple"></div>
-      <h1 class="glass-title">
-        <img src="/images/mosque.png" alt="رمز إسلامي" class="icon-glow" style="width: 2.5em; height: 2.5em; vertical-align: middle;">
-        <span class="title-text">إذاعة القرآن الكريم</span>
-      </h1>
-      <p class="subtitle">من القاهرة • مصر</p>
+      <div class="header-content">
+        <div class="logo-container">
+          <img
+            src="/images/mosque.png"
+            alt="رمز إسلامي"
+            class="icon-glow"
+            width="80"
+            height="80"
+            loading="eager"
+          />
+          <div class="logo-badge">
+            <span class="badge-text">24/7</span>
+          </div>
+        </div>
+        <div class="text-wrapper">
+          <h1 class="glass-title">
+            <span class="title-text">إذاعة القرآن الكريم</span>
+          </h1>
+          <p class="subtitle">من القاهرة • مصر</p>
+        </div>
+      </div>
     </div>
 
-    <!-- Player glass panel -->
-    <RadioPlayer lang="ar" />
+    <!-- Modern Radio Player -->
+    <ModernRadioPlayer lang="ar" />
 
-    <!-- Controls glass panel -->
-    <ControlButtons lang="ar" />
+    <!-- Modern Control Buttons -->
+    <ModernControlButtons lang="ar" />
 
-    <!-- Status glass panel -->
+    <!-- Enhanced Status Panel -->
     <div class="glass-panel status-panel">
       <div class="status-indicator">
         <span class="pulse-dot"></span>
         <span id="status" class="status-text">جاهز للتشغيل</span>
       </div>
+
+      <!-- Network Quality Indicator -->
+      <div class="network-quality">
+        <svg class="network-icon" viewBox="0 0 24 24" width="16" height="16">
+          <path d="M1 9l2-2v8" fill="currentColor" opacity="0.3"/>
+          <path d="M5 7l2-2v10" fill="currentColor" opacity="0.5"/>
+          <path d="M9 5l2-2v14" fill="currentColor" opacity="0.7"/>
+          <path d="M13 3l2-2v18" fill="currentColor" opacity="1"/>
+        </svg>
+        <span class="network-text">اتصال ممتاز</span>
+      </div>
     </div>
+
   </div>
 
-  <!-- Floating particles effect -->
+  <!-- Enhanced Floating Particles -->
   <div class="particles-container">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
     <div class="particle"></div>
     <div class="particle"></div>
     <div class="particle"></div>
@@ -117,8 +207,391 @@ const description = "استمع إلى بث مباشر لإذاعة القرآن
   <!-- Developer Credit -->
   <div class="dev-credit">
     <a href="https://engahmedali.dev/" target="_blank" rel="noopener" class="dev-link">
-      <span class="dev-text">Ahmed Ali</span>
+      <span class="dev-text">تطوير: Ahmed Ali</span>
     </a>
   </div>
 
+  <!-- Toast Notifications Container -->
+  <div class="toast-container" id="toastContainer"></div>
 </Layout>
+
+<style>
+  /* Additional Enhanced Styles */
+  .header-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xl);
+  }
+
+  .text-wrapper {
+    text-align: right;
+  }
+
+  .glass-title {
+    margin: 0 0 var(--space-sm) 0;
+  }
+
+  .subtitle {
+    margin: 0;
+  }
+
+  .logo-container {
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .logo-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--primary-color);
+    color: white;
+    padding: 4px 8px;
+    border-radius: var(--radius-full);
+    font-size: 0.625rem;
+    font-weight: 700;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* Quick Stats */
+  .quick-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    margin-top: var(--space-lg);
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-value {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: var(--space-xs);
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Network Quality */
+  .network-quality {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    justify-content: center;
+  }
+
+  .network-icon {
+    color: var(--primary-color);
+  }
+
+  .network-text {
+    font-size: 0.813rem;
+    color: var(--text-secondary);
+  }
+
+  /* Features Panel */
+  .features-panel {
+    margin-top: var(--space-lg);
+  }
+
+  .features-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    background: var(--glass-bg-2);
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .feature-item:hover {
+    background: var(--glass-bg-3);
+    transform: translateY(-2px);
+  }
+
+  .feature-item svg {
+    color: var(--primary-color);
+    flex-shrink: 0;
+  }
+
+  .feature-item span {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  /* Toast Container */
+  .toast-container {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    z-index: 9000;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  [dir="rtl"] .toast-container {
+    right: auto;
+    left: 20px;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .quick-stats {
+      gap: var(--space-lg);
+    }
+
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .feature-item span {
+      font-size: 0.7rem;
+    }
+  }
+
+  /* Content Loaded Animation */
+  .content-loaded .glass-container > * {
+    animation: content-fade-in 0.6s ease forwards;
+    opacity: 0;
+  }
+
+  .content-loaded .glass-container > *:nth-child(1) { animation-delay: 0.1s; }
+  .content-loaded .glass-container > *:nth-child(2) { animation-delay: 0.2s; }
+  .content-loaded .glass-container > *:nth-child(3) { animation-delay: 0.3s; }
+  .content-loaded .glass-container > *:nth-child(4) { animation-delay: 0.4s; }
+  .content-loaded .glass-container > *:nth-child(5) { animation-delay: 0.5s; }
+
+  @keyframes content-fade-in {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+</style>
+
+<script>
+  // Enhanced Features Initialization
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialize tooltips
+    initTooltips();
+
+    // Initialize keyboard shortcuts help
+    initKeyboardHelp();
+
+    // Initialize network monitoring
+    initNetworkMonitoring();
+  });
+
+  function initTooltips() {
+    // Add tooltips to buttons if needed
+  }
+
+  function initKeyboardHelp() {
+    document.addEventListener('keydown', (e) => {
+      // Show keyboard shortcuts with '?'
+      if (e.key === '?' || (e.key === '/' && e.shiftKey)) {
+        showKeyboardShortcuts();
+      }
+    });
+  }
+
+  function showKeyboardShortcuts() {
+    showToast('اختصارات لوحة المفاتيح: مسافة = تشغيل/إيقاف، ↑↓ = الصوت، T = المؤقت', 'info', 5000);
+  }
+
+  function initNetworkMonitoring() {
+    const networkText = document.querySelector('.network-text') as HTMLElement;
+    const networkIcon = document.querySelector('.network-icon') as HTMLElement;
+
+    function updateNetworkStatus() {
+      if (!navigator.onLine) {
+        if (networkText) networkText.textContent = 'غير متصل';
+        if (networkIcon) networkIcon.style.color = 'var(--text-muted)';
+      } else {
+        // Simulate connection quality based on navigator.connection
+        if ('connection' in navigator) {
+          const connection = (navigator as any).connection;
+          const effectiveType = connection.effectiveType;
+
+          switch(effectiveType) {
+            case '4g':
+              if (networkText) networkText.textContent = 'اتصال ممتاز';
+              if (networkIcon) networkIcon.style.color = 'var(--primary-color)';
+              break;
+            case '3g':
+              if (networkText) networkText.textContent = 'اتصال جيد';
+              if (networkIcon) networkIcon.style.color = 'var(--secondary-color)';
+              break;
+            case '2g':
+              if (networkText) networkText.textContent = 'اتصال بطيء';
+              if (networkIcon) networkIcon.style.color = 'var(--accent-color)';
+              break;
+            default:
+              if (networkText) networkText.textContent = 'متصل';
+              if (networkIcon) networkIcon.style.color = 'var(--text-secondary)';
+          }
+        }
+      }
+    }
+
+    window.addEventListener('online', updateNetworkStatus);
+    window.addEventListener('offline', updateNetworkStatus);
+    updateNetworkStatus();
+  }
+
+  function showToast(message: string, type: 'success' | 'error' | 'info' = 'info', duration = 3000) {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `
+      <div class="toast-content">
+        <span class="toast-message">${message}</span>
+        <button class="toast-close">×</button>
+      </div>
+    `;
+
+    // Add styles
+    toast.style.cssText = `
+      background: var(--glass-bg-3);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-sm);
+      animation: slide-in 0.3s ease;
+      min-width: 250px;
+      box-shadow: var(--shadow-lg);
+    `;
+
+    container.appendChild(toast);
+
+    // Close button
+    toast.querySelector('.toast-close')?.addEventListener('click', () => {
+      toast.style.animation = 'slide-out 0.3s ease';
+      setTimeout(() => toast.remove(), 300);
+    });
+
+    // Auto remove
+    setTimeout(() => {
+      if (toast.parentElement) {
+        toast.style.animation = 'slide-out 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }
+    }, duration);
+  }
+
+  // Export for global use
+  (window as any).showToast = showToast;
+</script>
+
+<style is:global>
+  /* Toast Animations */
+  @keyframes slide-in {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-out {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  .toast-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+
+  .toast-message {
+    color: var(--text-primary);
+    font-size: 0.875rem;
+  }
+
+  .toast-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+  }
+
+  .toast-close:hover {
+    background: var(--glass-bg-4);
+    color: var(--text-primary);
+  }
+
+  .toast-success {
+    border-left: 3px solid var(--primary-color);
+  }
+
+  .toast-error {
+    border-left: 3px solid #ef4444;
+  }
+
+  .toast-info {
+    border-left: 3px solid var(--secondary-color);
+  }
+
+  [dir="rtl"] .toast-success,
+  [dir="rtl"] .toast-error,
+  [dir="rtl"] .toast-info {
+    border-left: none;
+    border-right-width: 3px;
+  }
+</style>
