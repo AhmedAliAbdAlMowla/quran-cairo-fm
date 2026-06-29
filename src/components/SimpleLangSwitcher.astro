@@ -6,8 +6,8 @@ export interface Props {
 const { currentLang } = Astro.props;
 const isArabic = currentLang === 'ar';
 
-// Determine the target URL and button text
-const targetUrl = isArabic ? '/en' : '/';
+// Determine the target URL and button text (trailing slash to match canonical/hreflang)
+const targetUrl = isArabic ? '/en/' : '/';
 const buttonText = isArabic ? 'English' : 'العربية';
 ---
 
