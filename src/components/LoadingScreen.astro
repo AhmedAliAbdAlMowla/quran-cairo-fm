@@ -508,7 +508,6 @@ const isRTL = lang === "ar";
     private skeletonContainer: HTMLElement;
     private progressFill: HTMLElement;
     private progressPercentage: HTMLElement;
-    private startTime: number;
     private progress: number = 0;
 
     constructor() {
@@ -516,7 +515,6 @@ const isRTL = lang === "ar";
       this.skeletonContainer = document.getElementById('skeletonContainer')!;
       this.progressFill = document.querySelector('.progress-fill')!;
       this.progressPercentage = document.querySelector('.progress-percentage')!;
-      this.startTime = Date.now();
       this.init();
     }
 
@@ -526,19 +524,15 @@ const isRTL = lang === "ar";
     }
 
     private simulateLoading() {
-      const duration = 2000; // 2 seconds
+      // Cosmetic progress only — capped below 100% so the loader is dismissed
+      // by real resource readiness (trackActualLoading), never by an artificial timer.
       const interval = 50; // Update every 50ms
-      const steps = duration / interval;
-      const increment = 100 / steps;
+      const increment = 6;
 
       const timer = setInterval(() => {
-        this.progress += increment;
-        if (this.progress >= 100) {
-          this.progress = 100;
-          clearInterval(timer);
-          this.onLoadingComplete();
-        }
+        this.progress = Math.min(90, this.progress + increment);
         this.updateProgress();
+        if (this.progress >= 90) clearInterval(timer);
       }, interval);
     }
 
@@ -549,12 +543,11 @@ const isRTL = lang === "ar";
     }
 
     private trackActualLoading() {
-      // Wait for all critical resources
+      // Dismiss as soon as the real resources are ready — no artificial minimum delay
       Promise.all([
         this.waitForDOMContent(),
         this.waitForImages(),
-        this.waitForFonts(),
-        this.ensureMinimumLoadTime()
+        this.waitForFonts()
       ]).then(() => {
         this.onLoadingComplete();
       });
@@ -590,13 +583,6 @@ const isRTL = lang === "ar";
         return (document as any).fonts.ready;
       }
       return Promise.resolve();
-    }
-
-    private ensureMinimumLoadTime(): Promise<void> {
-      const minLoadTime = 1500; // Minimum 1.5 seconds
-      const elapsed = Date.now() - this.startTime;
-      const remaining = Math.max(0, minLoadTime - elapsed);
-      return new Promise(resolve => setTimeout(resolve, remaining));
     }
 
     private onLoadingComplete() {

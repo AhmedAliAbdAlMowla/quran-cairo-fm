@@ -5,20 +5,15 @@ import ModernControlButtons from '../components/ModernControlButtons.astro';
 import SimpleLangSwitcher from '../components/SimpleLangSwitcher.astro';
 import LoadingScreen from '../components/LoadingScreen.astro';
 
-const title = "Holy Quran Radio from Cairo - Live 24/7 | Enhanced Listening Experience";
-const description = "Listen to live broadcast of Holy Quran Radio from Cairo with modern design and enhanced user experience. Round-the-clock recitations by renowned reciters with advanced features.";
-const keywords = "Holy Quran, Quran Radio, Live Broadcast, Cairo, Egypt, Recitation, Quran Online, Islamic Radio, Enhanced Experience";
+const title = "Holy Quran Radio from Cairo - Live 24/7 Stream";
+const description = "Listen to the Holy Quran Radio from Cairo live, 24/7. Heartfelt recitations by renowned reciters, free and in high quality from anywhere in the world.";
 ---
 
-<Layout title={title} description={description} keywords={keywords} lang="en" dir="ltr">
+<Layout title={title} description={description} lang="en" dir="ltr">
   <Fragment slot="head">
-    <link rel="alternate" hreflang="ar" href="/" />
-    <link rel="alternate" hreflang="en" href="/en" />
-    <link rel="alternate" hreflang="x-default" href="/" />
-
-    <!-- Enhanced Stylesheets -->
-    <link rel="stylesheet" href="/css/style-enhanced.css" />
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="alternate" hreflang="ar" href="https://qurancairofm.com/" />
+    <link rel="alternate" hreflang="en" href="https://qurancairofm.com/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://qurancairofm.com/" />
 
     <!-- Preload Critical Assets -->
     <link rel="preload" href="/images/mosque.png" as="image" />
@@ -28,17 +23,19 @@ const keywords = "Holy Quran, Quran Radio, Live Broadcast, Cairo, Egypt, Recitat
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- Enhanced Structured Data -->
+    <!-- Structured Data -->
     <script type="application/ld+json" is:inline>
     [
       {
         "@context": "https://schema.org",
         "@type": "RadioStation",
+        "@id": "https://qurancairofm.com/#radiostation",
         "name": "Holy Quran Radio from Cairo",
-        "alternateName": "Egypt Quran Radio Enhanced",
-        "url": "https://qurancairofm.com/en",
+        "alternateName": "إذاعة القرآن الكريم من القاهرة",
+        "url": "https://qurancairofm.com/",
         "logo": "https://qurancairofm.com/images/mosque.png",
-        "description": "Holy Quran Radio from Cairo - 24/7 live broadcast with enhanced user experience",
+        "image": "https://qurancairofm.com/images/mosque.png",
+        "description": "Live 24/7 broadcast of the Holy Quran Radio from Cairo, with heartfelt recitations by renowned reciters.",
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Cairo",
@@ -54,12 +51,11 @@ const keywords = "Holy Quran, Quran Radio, Live Broadcast, Cairo, Egypt, Recitat
             "name": "Worldwide"
         },
         "inLanguage": ["ar", "en"],
-        "broadcastFrequency": "Online",
         "potentialAction": {
             "@type": "ListenAction",
             "target": {
                 "@type": "EntryPoint",
-                "urlTemplate": "https://qurancairofm.com/en",
+                "urlTemplate": "https://qurancairofm.com/en/",
                 "actionPlatform": [
                     "http://schema.org/DesktopWebPlatform",
                     "http://schema.org/MobileWebPlatform",
@@ -76,13 +72,6 @@ const keywords = "Holy Quran, Quran Radio, Live Broadcast, Cairo, Egypt, Recitat
                     "name": "Worldwide"
                 }
             }
-        },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "bestRating": "5",
-            "worstRating": "1",
-            "ratingCount": "2847"
         }
       },
       {
@@ -97,27 +86,12 @@ const keywords = "Holy Quran, Quran Radio, Live Broadcast, Cairo, Egypt, Recitat
       },
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Egypt Quran Radio Cairo",
-        "alternateName": "Holy Quran Radio from Cairo",
-        "url": "https://qurancairofm.com",
-        "logo": "https://qurancairofm.com/images/mosque.png",
-        "description": "Holy Quran Radio - Live broadcasting 24/7 from Cairo, Egypt",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Cairo",
-            "addressCountry": "EG"
-        }
-      },
-      {
-        "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "Egypt Quran Radio Cairo",
-        "url": "https://qurancairofm.com",
-        "potentialAction": {
-            "@type": "ListenAction",
-            "target": "https://qurancairofm.com/en"
-        }
+        "@id": "https://qurancairofm.com/#website",
+        "name": "Holy Quran Radio from Cairo",
+        "url": "https://qurancairofm.com/",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://qurancairofm.com/#radiostation" }
       }
     ]
     </script>
@@ -372,28 +346,7 @@ const keywords = "Holy Quran, Quran Radio, Live Broadcast, Cairo, Egypt, Recitat
     }
   }
 
-  /* Content Loaded Animation */
-  .content-loaded .glass-container > * {
-    animation: content-fade-in 0.6s ease forwards;
-    opacity: 0;
-  }
-
-  .content-loaded .glass-container > *:nth-child(1) { animation-delay: 0.1s; }
-  .content-loaded .glass-container > *:nth-child(2) { animation-delay: 0.2s; }
-  .content-loaded .glass-container > *:nth-child(3) { animation-delay: 0.3s; }
-  .content-loaded .glass-container > *:nth-child(4) { animation-delay: 0.4s; }
-  .content-loaded .glass-container > *:nth-child(5) { animation-delay: 0.5s; }
-
-  @keyframes content-fade-in {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-  }
+  /* Content is rendered immediately (no opacity gating / artificial reveal delay) */
 </style>
 
 <script>
